@@ -1,0 +1,22 @@
+------------------------------------------------------------------------------
+                             RIP Section Assistance
+------------------------------------------------------------------------------
+
+In order to take advantage of the RIPscrip graphics on this system, you will
+need to download the  latest version  of the RIPterm program.   This file is
+available in the File Library section available from this menu.  The file is
+in "ZIP" archive form.   To install it on your system, create a directory in
+which you will place the file,  copy the downloaded file into that directory
+and type "PKUNZIP <filename>".  If you do not have PKUNZIP, you may download
+that from the File Library menu as well.
+
+In order for  RIPterm to function properly on our BBS,  you need to have the
+ArenaBBS  Icons that  we use online.   This file may be  downloaded from the
+File Library menu as well.  UnZIP the Icon file in a directory called ICONS.
+For example, if you place the RIPterm program in a directory called RIPTERM,
+then you should place the Icon Files in a directory called RIPTERM\ICONS.
+
+Once you have everything unZIP'd, simply type RIPTERM and instruct the soft-
+ware what port your modem is connected to (1-4).  You will require an EGA or
+higher video board and a Microsoft compatible mouse.
+

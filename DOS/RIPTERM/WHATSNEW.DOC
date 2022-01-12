@@ -1,0 +1,1285 @@
+        ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+        ³                                                          ³°
+        ³                  ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ                  ³°
+        ³                     RIPterm v1.54.00                     ³°
+        ³                  ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ                  ³°
+        ³                                                          ³°
+        ³                     VERSION HISTORY!                     ³°
+        ³                                                          ³°
+        ³                      July 15, 1993                       ³°
+        ³                                                          ³°
+        ³                                                          ³°
+        ³  Copyright (c) 1992-93, TeleGrafix Communications, Inc.  ³°
+        ³                   All Rights Reserved                    ³°
+        ³                                                          ³°
+        ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ°
+         °°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°
+
+
+
+
+
+
+ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+³                  Version 1.54.00 ... Released 7/15/93                      ³
+ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+
+     Fixed a bug that appeared only when upgrading to a new copy
+      of RIPterm.  In previous versions, the modem initialization
+      string, baud rate and other comm parameters would be reset
+      to "stock" RIPterm settings.  In other words, whatever
+      comm settings you had setup in your older version of RIPterm
+      would be forgotten and overwritten with some "defaults"
+      that RIPterm thought were more appropriate.  This no longer
+      happens and RIPterm will preserve your older configuration.
+
+     Fixed a couple of glitches with Mouse Buttons that use the
+      Hot Icon mode of the RIP_BUTTON command.  In prior versions,
+      the Hot Icon wasn't properly displayed without the INVERT
+      flag present.  Now it does.  Also, when INVERT is enabled,
+      the button's label would be inverted as it should be but
+      when INVERT was not present, the labels were still being
+      inverted when they shouldn't have been.  Now corrected.
+      Also corrected in this bug fix were some other minor
+      glitches relating to radio buttons and checkbox buttons
+      when they were used without the INVERT flag being present.
+      In all cases, a radio button or checkbox button must have
+      some kind of way of inverting the button or presenting
+      an alternative image of the button.  Now, if a button is
+      a radio button or a checkbox button, then INVERT is assumed
+      unless it is a hot icon button where the alternate icon is
+      used for the selected button image.
+
+     Fixed a bug where BBS sub-directories weren't automatically
+      created upon dialing the system the first time.  This only
+      happened under certain situations, depending on the type of
+      modem you owned.  
+
+     Cleaned up some timing problems with Zmodem and Ymodem (batch)
+      uploads and downloads.  We have been working closely with the
+      authors of the File Transfer Protocol routines and think that
+      we now have a very stable set of transfer protocols.  Sorry
+      about the past instabilities.
+
+     Fixed a couple of bugs with the remote definition of text variables.
+      One of the bugs would always put a question mark in the data field
+      when asking you to fill-in a text variable.  Another bug would
+      corrupt the dialog box when the question was entirely blank.  Both
+      are now fixed.
+
+     Added support for a new RIPscrip command: Poly-Line
+
+     Supported the full modes of the RIP_VIEWPORT command for defining
+      graphical display viewports for RIPscrip graphics primitives.
+
+     Corrected a bug with RIPterm's ASCII Upload feature.  In previous
+      versions, ASCII upload didn't look for its upload files in the
+      Upload Directory - they were always assumed to be in the current
+      directory.  This is no longer the case and ASCII uploads operate
+      as you would expect them to - looking up files in the appropriate
+      upload directory.
+
+     Fixed a one-pixel glitch on the download window where one of
+      the fields was off by a pixel.  It annoyed me, ok!
+
+     Fixed a bug with the Scrolling Popup Menu routines.  Under some
+      circumstances, these operations could cause RIPterm to freak out
+      and the mouse to move around all-by-itself and do weird things.
+      Turned out to be a low-level problem with one of the graphics
+      routines that drew the popup menu.  This bug also existed in
+      RIPaint and was fixed simultaneously.
+
+     Improved the appearance of the Pull Down menus a bit with a tad
+      more beveling <grin>.
+
+     Fixed a problem where if you accessed the pull-down menu by the
+      keyboard (ie, F10=menu) and you choose an option like the Dialing
+      Directory, Hangup, Download File, etc., RIPterm will no longer
+      return to the Pull Down menu immediately upon completion of the
+      command.  This was best exemplified with the Dialing Directory.
+      If you got a connection, you would be popped back into the pull
+      down menu and wouldn't see anything.  You would have to hit the
+      ESCAPE key twice to get out of the menus before you would see 
+      any of the text from the Host.  This is now no longer the case.
+
+     Fixed a problem when RIPterm senses the Fonts or Icon Files are
+      in the wrong directory, where RIPterm would not preserve the
+      correct file date/time on the newly copied file(s).  This could
+      affect the RIP_FILE_QUERY command where the BBS can ask RIPterm
+      if it has a certain file, and if so, what the date/time of the
+      file is.  Since the date/time was incorrect on the file, it could
+      frequently be unneccessarily downloaded from the Host.
+
+     The RIPscrip Auto-Sensing command contains a Vendor Code indicating
+      which Manufacturer's terminal is responding.  The valid Vendor
+      codes are:
+
+               0 - Generic RIPscrip terminal (manufacturer unknown)
+               1 - RIPterm (from TeleGrafix Communications, Inc.)
+               2 - Qmodem Pro (from Mustang Software, Inc.)
+
+      These codes are contained in the return string sent to the Host
+      when RIPterm detects an version number query command.  The format
+      of the return string is:  RIPSCRIP0153xy where "x" is the Vendor
+      Code (0-2) and the "y" is the manufacturer's version code.  The
+      "0153" indicates the version number of the RIPscrip specification
+      without decimal points (eg, v1.53 would be 0153).  In v1.53.00 of
+      RIPterm, the software was incorrectly responding as Vendor Code
+      #2 (same as Qmodem Pro).  This is now corrected to the proper value
+      of "1". (eg, RIPSCRIP015311) where our Revision Code is "1" and our
+      Vendor Code is "1".
+
+     Resolved a bug with the external Font Files (.CHR files).  When the
+      User unZIP's RIPterm, the Icon and Font files could be placed in
+      the incorrect location if the user didn't extract the archive with
+      sub-directory information.  When this happens, RIPterm would ask
+      the user if he wants to move the files to the proper directories.
+      The Icon Files (.ICN, .HIC and .MSK files) are moved to the ICONS\
+      directory and the .CHR files should be moved to the FONTS\ directory.
+      The Bug that existed in the last release tried to move the .CHR
+      files over to the FONTS\ directory BEFORE the directory was created.
+      The second time you ran RIPterm, the directory would exist and the
+      files would be moved over properly.
+
+     Resolved a glitch with the Upload/Download directories.  If you did
+      not place a backslash on the end of the path, RIPterm would not
+      properly store the files that you downloaded.  In fact, the files
+      would disappear as if by magic.  RIPterm now automatically places
+      a backslash on the end for you and even capitalizes the path for you.
+      Isn't technology wonderful?
+
+     Fixed a minor bug with the RIP_ENTER_BLOCK_MODE command where if
+      you actually attempt to do a batch file transfer (more than one file)
+      the progress meter at the bottom of the Block Transfer window would
+      not get cleared from one file to the next (ie, Reset).
+
+     Enhanced the operation of the Button Command when used with Radio
+      Buttons or Checkbox Groups and when the button is initially drawn
+      as "selected".  In previous versions, any Host Command string was
+      not automatically processed.  Due to popular demand, it is processed
+      immediately (and possibly transmitted to the Host).
+
+     Fixed a bug with the RIP_DEFINE command.  If the text variable to
+      be defined was flagged to be saved to the database, it would not;
+      it was saved to an internal "volatile" memory table which only
+      exists until RIPterm exits.  If you tried to define a text variable
+      and tell it NOT to save to the database (putting it in the table
+      intentionally), then it WOULD get saved to the database.  This
+      obviously backwards way of doing things is now rectified and the
+      variables will be saved to either the database or the internal
+      memory table as they should.
+
+     Fixed another bug with RIPscrip processing - If a CTRL-A or CTRL-B
+      was received, RIPterm would attempt to process it as a RIPscrip
+      command.  Even if the following character wasn't a vertical bar (|)
+      then the CTRL-A or CTRL-B would get gobbled (not displayed) and
+      the next character would get ignored.  Now, the CTRL-A or CTRL-B
+      are displayed as well as the second character.
+
+
+
+
+ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+³                  Version 1.53.00 ... Released 6/3/93                       ³
+ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+
+     Fixed a bug with Mouse Buttons that would (when clicked) mess
+      up the sunken attribute by extending the bevel one pixel wider
+      in all directions (inward).  This had the net effect that when
+      you click on a Mouse Button, its bevel would get thicker and
+      would thus not appear the way it should when you release the
+      mouse on the button (release).
+
+     Resolved a bug with the $RTW$ text variable where the Text Window
+      WRAP/CHOP setting wasn't being preserved when you do a Restore
+      Text Window command.
+
+     If RIPterm senses that it is upgraded to a newer version, the
+      first time that RIPterm loads it will display the "About Box"
+      to inform you of any alterations in the software (if any).
+
+     The file transfer protocols now yield an alarm sound in the
+      event of a transfer error - in addition to a pop-up message
+      window.  This gives you an audible clue that something went
+      wrong.
+
+     Added the ability to disable all alarm sounds and other various
+      forms of beeping and general noise.  You can now make RIPterm
+      completely silent if you wish by turning OFF Alarm Sounds and
+      Disabling Beeps.
+
+     Altered the hangup code so that if a hangup operation fails,
+      not only will it display "Hangup Failed", but it will also
+      beep your terminal to indicate some kind of error occured.
+
+     Fixed the RIPTERM.FNT file to display the proper characters
+      for ASCII characters 9, 10 and 13.  In prior versions of
+      RIPterm, these characters appeared as blank spaces.  In this
+      version, they appear as a circle, reversed circle and a 
+      single-stem musical note.
+
+     Resolved a bug where a vertical bar (|) occuring in a text
+      portion of a RIPscrip sequence (even if it was preceded with
+      a backslash escaping character), the remainder of the line of
+      RIP code would be "discarded" as illegal RIPscrip code, and
+      the last portion of the text parameter would be discarded.
+
+     Improved the look & feel of a number of the pop-up window boxes
+      in RIPterm.
+
+     Added a "Expand Blank Line" option to the ASCII File Upload
+      Settings dialog box.  If enabled (the default), any blank lines
+      that are ASCII uploaded will be expanded to a space<cr> so that
+      things like Email Editors and things won't interpret the data
+      as a blank line (and re-prompt the user with a command prompt).
+      In some cases however, this is undesirable; in cases like these,
+      simply turn this option off and no space padding will be added
+      on blank lines.
+
+     Re-designed the Modem Options dialog box.  Many options in there
+      now adhere to the "pop-down" menu concept for the COM Port, Baud,
+      Data Bits, Parity and Stop Bits settings making the dialog box
+      a lot less clutterd and much easier to work with and understand.
+     
+     Modified the RIP_ENTER_BLOCK mode.  The format of the RIPscrip
+      command used to be:
+
+          !|9<escape> protocol:2 filetype:2 reserved:2 [filename] <>
+
+      The block mode was modified to allow for both downloads and now
+      automated uploading.  The protocol field was previously a 2-digit
+      MegaNum parameter.  It is now a 1-digit MegaNum parameter, and
+      a mode field (1 digit) was added in front of the protocol field
+      as in the following syntax:
+
+          !|9<escape> mode:1 protocol:1 filetype:2 reserved:2 [filename] <>
+
+      A mode value of 0 indicates download block mode.  A value of 1
+      indicates an upload.  When in upload mode, the filename field IS
+      required, and multiple files can be specified if the protocol
+      field indicates a batch type protocol.
+
+      If Data Security in RIPterm is enabled and an "upload" type block
+      request is received, RIPterm will prompt the user if he wishes
+      to approve the upload.  If the user denies the upload, RIPterm
+      will send 10 CAN characters to the host separated by 1/10th
+      second pauses to abort any file transfer protocol that may be
+      active on the host end.
+
+     Added six new graphical fonts to RIPterm.  The new fonts, and
+      their font-id numbers are as follows:
+
+          05 - Script Font
+          06 - Simplex Font
+          07 - Triplex Script Font
+          08 - Complex Font
+          09 - European Font
+          0A - Bold Font (outline font)
+
+      These font-id numbers can be used in conjunction with the
+      RIP_FONT_STYLE command to set different graphical fonts in RIPscrip.
+
+     Externalized the RIPterm graphical fonts.  All fonts are contained
+      in external disk-based font files.  This serves three purposes:
+
+          1) All fonts are now easily editable with any available
+             Borland BGI font editor.
+          2) RIPterm now requires approximately 40k less memory to
+             operate, since the fonts are no longer embedded into
+             the RIPTERM.EXE file.
+          3) It makes the addition of more fonts easier in the future.
+
+     Added upload and download sub-directory support.  All files that
+      are uploaded will be searched for in the designated upload
+      directory, and the same applies for downloads with the download
+      directory.  If no directory has been specified, then uploads and
+      downloads will be directed to the current sub-directory that
+      RIPterm is using (unless otherwise specified).
+
+     Modified the dialing directory so that it clears the screen
+      before dialing a system, thus removing any log-off screens
+      from previously called systems that might still be on the
+      screen (leaving RIPterm in a "fresh" state for the next BBS).
+
+     Fixed "Icon Sub-directories" with Mouse Buttons that use
+      Icon Files for the button image.  In previous versions, 
+      if the desired Icon file wasn't in the ICONS\ sub-directory,
+      it wouldn't be loaded for the button image and consequently,
+      the button wouldn't be created (ie, no clickable button).
+
+     Added an option to lower DTR upon exit of RIPterm.  Normally,
+      RIPterm would leave DTR enabled when RIPterm exits, or when
+      changing to another COM port.  This new option will lower
+      DTR when a COM port is closed or when RIPterm exits, provided
+      you are not already online and indicate to RIPterm not to hangup.
+      If you instruct RIPterm not to hangup, DTR will remain active
+      (high).
+
+     Added enhanced Doorway (tm) support.  RIPterm's Doorway mode has
+      been significantly enhanced to support the advanced features of
+      Printer Re-direction and Special Character Overides.  In addition,
+      the ANSI sequences to enable/disable Doorway mode are supported
+      along with the ANSI sequences to print strings.  If a printer
+      is not configured, RIPterm will instruct Doorway that it does
+      not support printer re-direction.  RIPterm should be fully
+      100% doorway compatible in all modes.  As a point worth mentioning,
+      RIPterm v1.53 is the first commercial terminal program to ever
+      support the full Doorway interface totally!
+
+     Added Session Logging to the Printer.  You may now toggle the
+      printer ON via ALT-P and any ASCII/ANSI text that appears over
+      the modem will be printed as well as displayed on the user's
+      screen.  When session printing is enabled, a field on the
+      status line changes to reflect that printing is active.
+      Clicking on this field will toggle the printer off.
+
+     You can now specify which LPT port your printer is connected
+      to in the General Setup dialog box.  You may choose from LPT1
+      through LPT3 or set it to 0 for no printer attached.  If you
+      specify not to use a printer, choosing any Print options from
+      within RIPterm will instruct you that there is no printer
+      attached and will refuse to attempt printing.
+
+     Text parameters of RIPscrip commands may now be up to 1024 bytes
+      in length instead of the previous 256 byte limit.
+
+     A bug existed in previous version of RIPterm that would prevent
+      a line of text from being displayed if an exclamation point (!)
+      appeared in column #1.
+
+     Modified the Enter Block Transfer mode to change the RIPscrip
+      command level to 9 instead of 10.  This was done for technical
+      reasons and has been adopted into the RIPscrip Protocol
+      Specification.  For the time being, RIPterm will recognize the
+      level-10 flavor of the Enter Block Transfer mode as well as the
+      level-9 version.  The level-10 variety was left in for 
+      compatibility reasons and will be phased out in a future release.
+      Level-10 commands have been entirely eliminated in the RIPscrip
+      specification.
+
+     Made it so that if Data Security is enabled, whenever you try
+      to run an application via its text variable name, you are
+      prompted if you truly wish to run the application.  If Data
+      Security is disabled, the application will execute immediately.
+
+     The VT-100 Character Set functions (G0 and G1) were not being
+      reset when the user manually cleared his screen.  They do now.
+
+     14 new text variables have been added bringing RIPterm up to
+      a grand total of 103 built-in text variables.  The new text
+      variables are:
+
+             TWH ... Current text window's height
+             TWW ... Current text window's width
+            TWX0 ... Upper-left  X coordinate of text window
+            TWY0 ... Upper-left  Y coordinate of text window
+            TWX1 ... Lower-right X coordinate of text window
+            TWY1 ... Lower-right Y coordinate of text window
+           TWWIN ... Returns YES if text window active, otherwise NO
+          TWFONT ... Current System Font number in use or 0 for none
+            CURX ... Returns the current X cursor coordinate
+            CURY ... Returns the current Y cursor coordinate
+          CURSOR ... Returns YES if the cursor is visible, otherwise NO
+         SAVEALL ... Performs the following: SAVE STW SCB and SMF
+      RESTOREALL ... Performs the following: RESTORE RTW RCB and RMF
+           RESET ... Resets the screen (like ALT-R in RIPterm)
+           ALARM ... An alarm sound - same as aborted file transfers
+          PHASER ... A descending frequency phaser-like sound
+       REVPHASER ... The same as PHASER except it is the reverse sound
+
+     All ANSI sequences supported by RIPterm are now documented in
+      Appendix B of the RIPTERM.DOC file for reference purposes.
+
+     Modified Kermit file transfers so that if you perform an upload
+      operation of a binary file over a 7-bit connection, the file
+      will transfer correctly.  In prior versions, the file would
+      become garbled due to the nature of the connection.
+
+     Repaired the incompatibilities with Custom Color Palettes on
+      particular hardware combinations.  Under some circumstances,
+      RIPterm would freak out the video system whenever a custom
+      color palette was encountered.
+
+     Added a feature to the file transfer protocols such that
+      if a file by the same name already exists, it will manipulate
+      the filename such that it doesn't overwrite the previously
+      saved file.  For example, TEST.TXT might be converted to
+      TEST.TX0, TEST.TX1, all the way up to TEST.999 for the 1000th
+      download of TEST.TXT.  If Zmodem Crash Recovery is enabled,
+      then this option will not apply when using Zmodem.  If 
+      Crash Recovery is disabled, then Zmodem will utilize this
+      feature.
+
+     Added a new option - Zmodem Recovery which controls whether
+      Zmodem should utilize Crash Recovery or not.  This is part
+      of your RIPterm setup.
+
+     Enhanced the External Application function, allowing a
+      particular application entry to be linked to a particular
+      file extension.  With this, you can automatically fire off
+      an application whenever a file with the appropriate file
+      extension is downloaded!  Viewing .GIF files the moment they
+      are downloaded is but one application of this feature.
+
+     Modified the Printer Output routines so that when text is
+      printed, both a carriage return and a line feed would be
+      output to the printer, not just a line feed.  On printers
+      like Epsons, this didn't seem to be a big deal, but on
+      most popular Laser Printers, it is a problem [was].
+
+     Significantly re-structured the pull-down menus to be easier
+      to understand and to find things.
+
+     Added a General Setup dialog box which allows you to edit
+      many setup-related options in RIPterm from one central location.
+      No more having to set a bunch of options in the pull-down
+      menus.
+
+     Enhanced the DOS Shell function.  DOS shells will now swap 
+      nearly 100% of all RIPterm data out of conventional (640k) 
+      memory into either EMS, XMS or to disk if all else fails.
+      RIPterm will only leave a 5.5k footprint in conventional
+      memory giving you nearly all of your memory back to MS-DOS
+      when you shell.  While you are shelled to DOS, RIPterm will
+      ignore any incoming data over the modem.
+
+     Added an External pull-down menu.  You may install local
+      applications from within this menu which you can then
+      execute quickly and easily from within RIPterm.
+
+     Added ten new text variables:  $APP0$ through $APP9$.  These
+      variables will execute applications #0 - 9.  You can use this
+      from within keystroke macros or from within Host Commands to
+      fire off a local DOS application while still online.
+
+     Modified the file transfer protocols so that they intelligently
+      handle Carrier Detect.  In prior versions, if CD was low, the
+      file protocols would think that the connection was lost and it
+      would abort the transfer.  Now, if CD is high before the
+      transfer starts, it will monitor carrier to check for a lost
+      connection.  If CD is low before the transfer begins, then 
+      RIPterm will ignore the status of Carrier Detect throughout
+      the duration of the transfer.
+
+     If RIPterm was out of memory, initiating a file transfer
+      would result in an aborted transfer due to lack of memory.
+      This should no longer happen.
+
+     Modified the file transfer routines so that if all memory in
+      RIPterm is exhausted, a file upload/download will no longer 
+      abort from lack of memory.  To gain the necessary memory
+      (approximately 1.5k), RIPterm will discard the oldest lines
+      of text in the scrollback buffer until the memory request
+      can be satisfied.
+
+     Altered the About Box for RIPterm.  The About Box now is
+      physically part of the RIPTERM.EXE file rather than the
+      Help system.
+
+
+
+ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+³                 Version 1.52.00 ... Released 04/20/93                      ³
+ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+
+     Added Dialing Prefix and Suffixes.  You may now have three
+      separate Dialing Prefixes and three separate Dialing Suffixes
+      to choose from for different telephone environments.
+
+     Altered to Dialing Directory Editor.  All fields are now pop-up
+      data fields instead of a lot of tiny radio buttons which are
+      more confusing looking.  Also added support for dialing prefix
+      and suffix in the editor.
+
+     Enhanced the look and feel of all pop-up menus, pull-down menus,
+      dialing window and the file transfer windows.  Much more 
+      professional looking.
+
+     Changed some of the low-level file I/O code in RIPterm to some
+      faster routines.  Icons should display faster (a bit) and windows,
+      when closed, should appear a little faster.
+
+     Redesigned RIPterm's internal memory structure.  By first
+      appearance, it will seem that RIPterm requires more memory than
+      it used to.  However, after prolonged use of RIPterm in the
+      same session, you will find that it no longer runs out of memory
+      as often, or freak out when memory runs low.  These problems
+      were due to Memory Fragmentation errors.
+
+     Fixed a bug with the scrollback buffer that would blank out the
+      bottom line of the window when you hit the UP-ARROW key to scroll
+      up.
+
+     Resolved a number of functional problems with the low-level
+      communications system of RIPterm.  Characters were being lost
+      with high speed modems with RTS/CTS enabled.  This should now
+      be resolved for you high-speed modem junkies.
+
+     Zmodem file transfers were having timing difficulties.  Now
+      resolved.  You should notice Zmodem uploads work excellent
+      now and Zmodem downloads are also much more reliable.
+
+     Fixed a number of bugs with VT-100/ANSI cursor positioning
+      with regard to the VT-100 vertical scrolling margins.  Also,
+      some glitches existed when the status bar was on/off that
+      didn't appear in prior releases.
+
+     RIPterm now auto-senses if you are using it on a MicroChannel
+      machine, and if so auto-patches the I/O Addresses and the
+      IRQ values for COM3-4 which are different.
+
+     The RIPTERM.FNT file is now considerably smaller (about 1/4 its
+      original size).
+
+     Fixed the bug which freaked out RIPterm when you execute the
+      "Built-in variables" option from the DATA pull-down menu.
+
+     The options that list out the text variables did not display
+      properly unless CR/LF was enabled.  This is now corrected and
+      they should display properly regardless of your CR/LF setting.
+
+     RIPterm will now restore the setting of the Scroll-Lock key
+      when it exits to DOS.  The status of the key is reset to
+      whatever the setting was when RIPterm booted up.
+
+     Added a visual error recovery notation on the progress bar of
+      the file transfer window.  You can now visually see how far
+      the protocol had to "back up".
+
+     Added four new text variables:
+
+        $HKEYON$ ... Enable Button Hotkeys
+
+        This option enables button hotkeys.  Any Button that is
+        created by a BBS that has a hotkey will be activated
+        if you hit the corresponding key on your keyboard. 
+        This will light-up the Scroll-Lock key on your
+        keyboard indicating that Button Hotkey mode is ON.
+
+
+        $HKEYOFF$ ... Disable Button Hotkeys
+
+        This option disables button hotkeys.  Any Button that
+        is created by a BBS that has a hotkey associated with
+        it, will not be activated even if the user hits that
+        key on his keyboard.  The only way to activate a
+        button in this mode is with the mouse.  The
+        Scroll-Lock key on your keyboard will go dim,
+        indicating that Button Hotkey Mode is disabled.
+
+
+        $TABON$ ... Enable TAB to execute mouse fields
+
+        When this variable is processed, you can use the TAB
+        key to navigate through the Mouse/Button fields on
+        your screen.  In this mode, you can access the fields
+        without a mouse.  The side- effect is that the TAB key
+        cannot be used directly with the Host.
+
+
+        $TABOFF$ ... Disable TAB to execute mouse fields
+
+        When this variable is processed, you cannot use the TAB
+        key to navigate throug the Mouse/Button fields on your
+        screen.  In this mode, whenever the TAB key is hit, it
+        is sent directly to the Host as a TAB character.  Any
+        fields that are already hilighted when this variable
+        is received will be de-hilighted.
+        
+
+     Tech Note: The Clipboard is now auto-allocated upon RIPterm bootup
+      to a fixed size of 64k.  If you load an Icon but instruct RIPterm
+      not to put it on the clipboard, it will still load even if the
+      icon is up to 64k in size.
+
+ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+³                 Version 1.51.00 ... Released 03/29/93                      ³
+ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+
+     VT-102 compatible operation.  RIPterm now adheres to ANSI SCO/UNIX
+      VT-102 compatibility.
+
+     Bugs were fixed with VT-102 tab stops and tab handling
+
+     In VT-102 mode, backspaces are now non-destructive.
+
+     Added several VT-102 commands:
+    
+               ESC [ <n> @  ..... Insert <n> characters
+               ESC [ <n> P  ..... Delete <n> characters
+               ESC [ <n> L  ..... Insert <n> lines
+               ESC [ <n> M  ..... Delete <n> lines
+               ESC [ <n> Z  ..... Move cursor backward <n> tab stops
+
+     Fixed a number of bugs with ANSI clear-screen/area commands.
+
+     ANSI clear screen (ESC [ 2 J) commands now properly reset the screen
+      to the proper display attribute.
+
+     Scrolling the screen will clear the bottom line to the proper display
+      attributes.
+
+     Supports VT-102 character sets G0 and G1 (US, UK or Special Sets)
+
+     A couple of bugs were fixed in this version pertaining to one-line
+      text windows.  Two oddities were happening when in this mode:
+
+          1) when the window "scrolls", portions of the previous
+             line would remain at the top of the text window, and
+          2) if the window was set to "CHOP" mode (i.e., NO WRAP),
+             and you hit the far-right of the window, characters
+             that you type would appear outside the text window
+             off to the right (potentially disturbing graphics).
+
+     Another bug was fixed with the 80x43 and 91x43 fonts with the
+      status bar.  If the status bar is OFF and the cursor is underneath
+      where the status bar would normally be, and then the status bar
+      is enabled, the status bar would be disturbed by the cursor or
+      the text.  In other words, the status bar would get freaked out.
+
+     More sophisticated Save Screen and Restore Screen macros were
+      added in this version.  There are now text variables for
+      $SAVE0$ - $SAVE9$ and $RESTORE0$ - $RESTORE9$.  This gives you
+      ten different simultaneously saved graphics screens.  When you
+      restore one of these screens using RESTORE0-9, the temporary
+      files are immediately deleted when restored.  This is different
+      than the $RESTORE$ variable which leaves the screen file on the
+      hard disk even after the restoration is complete.  This allows
+      for multiple restores to occur without having to re-save the
+      screen each time.  The SAVE0 through SAVE9 commands save their
+      graphical data to files RIPTERM0.SAV through RIPTERM9.SAV.
+
+     When RIPterm boots up and shuts down, it will delete any
+      temporary files created by the text variable commands.  The
+      files that will be removed are:
+
+               RIPFIELD.SAV ... Saved Mouse Fields
+               SCRAPBUF.SAV ... Saved Clipboard
+               RIPTERM.SAV  ... Saved graphics screen ($SAVE$)
+               RIPTERM0.SAV ... Saved graphics screen ($SAVE0$)
+                    :                        :
+               RIPTERM9.SAV ... Saved graphics screen ($SAVE9$)
+
+     A new option is available to the RIPterm user: Button hotkey
+      release mode.  This allows the user to determine whether his
+      keystrokes should be checked with the BBS buttons or not for
+      activation.  In other words, if the BBS places a button on
+      the screen like this:
+
+                      ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+                      ³                ³
+                      ³  (E)nter name  ³
+                      ³                ³
+                      ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+
+      ...where the hotkey for the button is "E", simply pressing the
+      "E" key on your keyboard would normally activate this button.
+      This may not be desirable if you're trying to send a message to
+      another user with the letter "E" in it.  Now, there's a way
+      around this: Hotkey Release Mode.
+
+      Hotkey Release mode is linked to your SCROLL-LOCK key on your
+      keyboard.  If Scroll Lock is lit, then hotkeys are processed.
+      If it is not lit, then the character will be sent to the BBS
+      directly, bypassing any button hotkeys.  If you set this option
+      from within the pull-down menus, then the option can be
+      permanently saved to the RIPterm setup.  Simply toggling the
+      option with the Scroll Lock key directly will not be automatically
+      saved to your setup (even if you perform a "Save Setup").
+
+     When you initially install RIPterm, and if a dialing directory
+      file is present, RIPterm will scan the file and make sure that
+      all of the entries in it are set to the proper COM port that
+      you specified when you originally installed RIPterm.  Also, the
+      Baud Rate will be set appropriately.
+
+     When running RIPterm for the first time, entering a "0" for the
+      COM port (presumably to return to DOS) no longer reboots your
+      PC (whoops).  This also applies to the Baud Rate installation
+      option.
+
+     Fixed a bug where the Numeric Keypad would not produce numeric
+      digits in the normal terminal window.  This bug was fixed a long
+      time ago but in some internal restructuring of RIPterm, it managed
+      to creep back into the software.  Sorry folks.
+
+     Added a new feature into one of the RIPscrip commands allowing
+      the Host to ask the terminal to inform it when the user clicks
+      the mouse somewhere on the screen.  This could be greatly used
+      by software manufacturers who wish to make interactive programs
+      like Games or other such things that take advantage of the Mouse
+      remotely.  Imagine playing a space game with your ship in the
+      middle of the screen, and clicking elsewhere in the space-map
+      and having your ship turn and head toward where you click!
+      For the technical minded, these changes were made to the RIP_QUERY
+      command.  Two new flags were added to this:
+
+          1) Tell the Host if the user clicks in the graphics window
+          2) Tell the Host if the user clicks in the text window
+
+     This version corrects a problem with "local RIP file playback"
+      options.  In prior versions, this mode would slowly gobble up
+      file handles until there are none left.  At that point, subsequent
+      Playback was not possible unless you exit RIPterm and re-run it.
+      
+     Resolved a bug where Local RIP playback was not functioning
+      properly when used in a Mouse or Button Host Command.
+
+     Cleared up a bug with Full/Duplex toggling.  When you toggled
+      this option ON or OFF, the status bar was not properly updated.
+
+     Added a number of new text variables:
+
+           $VT102ON$ ... Turn VT-102 mode ON
+          $VT102OFF$ ... Turn VT-102 mode OFF
+            $DWAYON$ ... Turn Doorway Mode ON
+           $DWAYOFF$ ... Turn Doorway Mode OFF
+               $STW$ ... Saves text window layout
+               $RTW$ ... Restores text window layout
+              $COFF$ ... Disable text cursor
+               $CON$ ... Enable (display) text cursor
+               $STW$ ... Saves the text window information
+               $RTW$ ... Restores text window orientation
+
+     Added two new text variables: $SAVE$ and $RESTORE$.  The SAVE
+      variable will completely save the contents of the entire graphics
+      screen to a disk file called RIPTERM.SAV.  No Mouse Fields, Text
+      Window locations or Clipboard data are saved - just the graphics
+      screen.  The entire 640x350 region is saved to disk.  The RESTORE
+      command will read the saved file in from disk and restore the
+      graphics as they were originally saved.  If you wish to save the
+      entire state of the RIPterm system, use the following text variables
+      all at the same time (spaces are added for clarity):
+
+              $SAVE$ $STW$ $SCB$ $SMF$
+                 \     \     \     \
+                  \     \     \     --- Save Mouse Fields
+                   \     \     \
+                    \     \     ------- Save ClipBoard
+                     \     \
+                      \     ----------- Save Text Window
+                       \
+                        --------------- Save Graphics Screen
+
+      And to restore the entire context of a graphics environment, use
+      the following text variables:
+
+              $RESTORE$ $STW$ $SCB$ $SMF$
+                 \        \     \     \
+                  \        \     \     --- Restore Mouse Fields
+                   \        \     \
+                    \        \     ------- Restore ClipBoard
+                     \        \
+                      \        ----------- Restore Text Window
+                       \
+                        ------------------ Restore Graphics Screen
+
+     Text output speed has been vastly improved.  This only pertains to
+      text that is viewed in the Text Window (i.e., ASCII and ANSI text
+      that comes from the BBS, not graphical text messages in various
+      fonts).  In raw performance benchmarks we have determined some
+      statistics for these new printing routines.  In a test conducted
+      of 100,000 characters being printed (without any scrolling),
+      RIPterm consistently outperformed the old printing method by
+      the following times:
+
+           Font     New Time       Old Time       Speed Ratio
+          -------------------------------------------------------
+          80x43      5 seconds     32 seconds      6.40 to 1
+          80x25      7 seconds     53 seconds      7.57 to 1
+          91x43     18 seconds     42 seconds      2.33 to 1
+          91x25     27 seconds     69 seconds      2.56 to 1
+          40x25     12 seconds     78 seconds      6.50 to 1
+                                         ===================
+                                         AVERAGE:  5.07 to 1
+
+     New "Port Baud Lock" feature.  This option, available from the
+      Modem Options dialog box allows you to "lock" that baud rate
+      that the modem will use to whatever is defined in your Setup
+      (or in your dialing directory entries).  Even if the modem
+      connects with a "CONNECT xxxx" where "xxxx" is lower than this
+      "locked" baud rate, RIPterm will not adjust its baud rate
+      downward.  The reason for this is many high speed modems with
+      MNP or v.42 bis compression schemes require that the modem-to-
+      computer baud rate be higher than the actual connection speed.
+      Some modems will indicate the connection speed between the
+      two modems, and others will return the speed between the modem
+      and the PC.  If you have a normal 2400 baud modem, you will
+      not need to activate this option.  This option is only of
+      use if you have a high speed, error correcting or data compressing
+      modem.
+
+         NOTE: This option is part of the RIPterm setup.
+
+     Dialing the modem now takes special care of the Carrier Detect
+      signal.  If the CD signal is low (indicating no connection),
+      then if the CD signal goes high during the dialing process,
+      RIPterm will announce a successful connection and switch to
+      the Terminal screen.  If the CD signal is high when dialing
+      occurs, its status is ignored for the duration of the dialing
+      process and RIPterm will wait only for a CONNECT XXXX, BUSY,
+      VOICE, NO DIALTONE or ERROR messages.  This added intelligence
+      should aid RIPterm users unfamiliar with modems who have their
+      CD settings wrong on their terminal (i.e., AT &C0).  The proper
+      setting is AT &C1 ... for "true carrier detect" results.
+
+     A new RIPTERM.PCX logo file has been included with this release.
+      Some said that our prior logo screen wasn't adequate, so we made
+      a new one.
+
+     Added a new option to the pull-down menus:  VT-102 MODE.
+      When in this mode, several keys on your keyboard react as if RIPterm
+      were a VT-102 compatible keyboard.  When this mode is active, the
+      following keys will transmit the indicated piece of text:
+
+                              F1 ...  ESC [ M
+                              F2 ...  ESC [ N
+                              F3 ...  ESC [ O
+                              F4 ...  ESC [ P
+                              F5 ...  ESC [ Q
+                              F6 ...  ESC [ R
+                              F7 ...  ESC [ S
+                              F8 ...  ESC [ T
+                              F9 ...  ESC [ U
+                             F10 ...  ESC [ V
+                            PGUP ...  ESC [ I
+                            PGDN ...  ESC [ G
+                            HOME ...  ESC [ H
+                             END ...  ESC [ F
+                          INSERT ...  ESC [ L
+                       CURSOR UP ...  ESC [ A
+                       CURSOR DN ...  ESC [ B
+                     CURSOR LEFT ...  ESC [ C
+                    CURSOR RIGHT ...  ESC [ D
+
+      In addition, many ANSI escape sequences function slightly differently
+      than in normal ANSI mode.  When in this mode, RIPterm tries to act
+      like a VT-102 compatible terminal.
+
+     Made the "Offline" field in the status bar bring up the dialing
+      directory, not the manual dialing dialog box.
+
+     Resolved a bug with the Auto-Sensing RIPscrip option.  If the
+      auto-sensing ANSI command was received and the cursor was still
+      in column #1, it would not respond with any return sequence.
+
+     Resolved a bug with the Hangup command which would apparently
+      freeze-up RIPterm, but in fact, was actually taking an abnormally
+      long time to disconnect (roughly 1800 seconds).
+
+     Modified RIPterm so that RTS/CTS is by default, "ON".  Hardware
+      flow control of modem data is critically important in a graphical
+      terminal so that data is not lost while graphics commands are
+      being executed.  If CTS is "low", then this mode is automatically
+      disabled for you.
+
+     Resolved a bug with the "Restore Mouse Fields" text variable and
+      the "local RIP playback" variable when used in Mouse Fields or
+      Buttons.  This would cause the Host Command string to be improperly
+      processed.
+
+
+ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+³                  Version 1.50.00 ... Released 02/15/93                     ³
+ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+
+     This is a very major new release with a great many enhancements and
+     other features that were not present in prior versions.  The
+     following is a summary of what's new in v1.50.00:
+
+       RIPterm no longer requires a Mouse!
+
+       You can now access the pull-down menus via the keyboard by
+        hitting the F10 key.  You may navigate through the menus
+        with the arrow keys and tapping <ENTER> on the desired item
+        to activate it.
+
+       You may now access ANY mouse field in a RIPscrip menu
+        without the mouse by using the TAB or SHIFT-TAB keys to
+        hilight the field you want to execute.  Once the desired
+        field is hilighted, simply tap the <ENTER> key to activate
+        the mouse field.  If you wish to un-hilight any mouse field,
+        simply tap the Escape key.
+
+       System Font ability (change your Text fonts).  This mode
+        allows you to choose what size text you wish to use under
+        normal text environments.  You have five separate Fonts to
+        choose from:
+
+             80x43 (default)
+             80x25 (normal DOS screen size)
+             40x25 (low-res font)
+             91x43 (get more columns of text at once)
+             91x25 (get more columns of text at once)
+
+         This new "System Fonts" ability allows you to custom tailor
+         how RIPterm will display normal text to you when in a full-
+         screen text mode interface.  The BBS can overide this mode
+         under circumstances where your text interface is not full-
+         screen.  Whenever your screen is "reset" by the BBS (i.e.,
+         it is zoomed to full-screen mode), your default System Font
+         will once again be re-activated.
+
+       Built-in text variable system for Keystroke Macros, amd for
+        BBS/RIPterm information exchange.  This mode allows RIPterm
+        to become intelligent.  It does this by storing information
+        in a local database file (RIPTERM.DB) for future retrieval.
+        Every piece of information that is stored in this database
+        file is associated with a text variabe "name".  Each name
+        is from 3-12 characters in length.  The data that is
+        associated with the text variable can be from 0-60 characters
+        in length.  Any data that is stored in the database file is
+        saved indefinitely until either you, or the BBS alters it in
+        some way.  For high-speed retrieval of text variable data,
+        the database is automatically indexed for you.  An index is
+        like "sorting" something alphabetically so that you can find
+        a piece of information quickly.  In the event that the index
+        becomes corrupt due to loss of power or something of that
+        nature, RIPterm will automatically re-build the index file
+        for you.  See the section of the RIPterm documentation on
+        Text Variables in Keystroke Macros for many new details about
+        how to take advantage of this powerful feature.
+
+       A new "pull-down" menu has been added (DATA).  Under this
+        menu, you can create (or modify) text variables, view the
+        contents of "pre-defined" text variables (e.g., $DATE$,
+        $TIME$, etc).  Also, you can view the contents of your
+        Text Variable database.
+
+       Popup List ability in keystroke macros.  Allow your keystroke
+        macros to do different things depending on a choice you make
+        when you execute the macro.  Pop-up lists are easy to create
+        and can be extremely useful when you need a macro to apply
+        to more than one type of situation online.
+
+       Doorway mode for Marshall Dudley's DOORWAY access program.
+        Just type ALT-= (alt-equal sign) to enter doorway mode. 
+        When in this mode, any special keystrokes you type are sent
+        to the BBS in a special way that any "doorway compatible"
+        package can use.  In this mode, the BBS can actually take
+        advantage of ALT keys, Function keys, Arrow Keys, or various
+        other keystrokes.  Only BBS software that directly supports
+        Doorway Mode can take advantage of this feature.  This mode
+        is predominantly used when accessing "Door" features of many
+        popular BBS packages (like PC-Board, Wildcat, Synchronet BBS,
+        and many others).
+
+       Support for a 101-key enhanced AT-keyboard in Doorway Mode.
+        Do not use this option if you do not have a 101-key keyboard.
+        If RIPterm freezes up on you when you go into this mode, 
+        reboot your computer and run RIPterm with the -E parameter to
+        disable 101-key support (i.e., RIPTERM -E).
+
+       RIPterm now auto-senses if a connection exists when you run
+        the software.  If a connection already exists, RIPterm does
+        not send the modem initialization string, but simply taps
+        <ENTER> to the BBS to (ideally) re-display the current menu,
+        or at least some kind of prompt.
+
+       RIPterm can auto-sense RIPscrip with the ANSI sequence
+        <ESC>[! ... it will return "RIPSCRIP015005" (the RIPscrip
+        version number, i.e., "v01.50.05").  This will only occur
+        if the BBS you call can support RIPscrip "auto-sensing".
+
+       A new boot-up mode (/O) to say you're already online.
+
+       Completely rewritten text-scrolling code!  Scrolling
+        text is approximately 10 times faster than in prior versions
+        of RIPterm.  Callers at 2400 baud will notice that scrolling
+        is faster than the modem.  Higher speed callers will still
+        notice that scrolling isn't as fast in a text-mode terminal
+        program, but that the scrolling is still much MUCH faster.
+        Scrolling speed is now limited by the speed of your computer,
+        and the type of Video Board you have.  16-bit video cards will
+        have faster scrolling than 8-bit cards.  We can't get much
+        faster with the scrolling speed, due to hardware performance
+        issues.  Future versions of RIPterm could very well auto-detect
+        your video card, and if you have an accelerated VGA card, it
+        might be able to improve performance still further.
+
+       Re-engineered File Transfer Protocols.  You now have access
+        to the following protocols:
+      
+                 Xmodem (checksum)       Xmodem (CRC)
+                 Xmodem-1K               Xmodem-1K (G)
+                 Ymodem (batch)          Ymodem-G
+                 Zmodem                  Kermit
+                 ASCII
+                 
+           NOTE: Zmodem now supports crash recovery
+      
+       File transfer protocols now check to see if the connection
+        with the BBS has been lost.  If so, it aborts the transfer.
+
+       File transfer protocols now allow you to abort a transfer by
+        tapping the <ESC> key.
+
+       Better support for flow control handshaking.  RTS/CTS
+        support has been added for better high-speed performance.
+        Also, XON/XOFF flow control options are enhanced for more
+        reliable operation.  Use RTS/CTS flow control with high-
+        speed modems for the best performance of your modem.
+
+       Baud Rates up to 115,200 are now supported.  4800 baud
+        now exists as a choice too.
+
+       The Modem Options dialog box has been restructured to be
+        less confusing, and more pleasing to the eye.
+
+       Help system has been overhauled (type F1 to see).  You can
+        now use the arrow keys to navigate through the Help System's
+        keywords to hilight the desired keyword in the specified
+        direction.  You no longer have to TAB endlessly through
+        numerous keywords to get to the one you want.  Also, the
+        Help Table of Contents has been totally re-designed to be
+        easier to use.
+
+       Scrolling up/down one line in the scollback buffer no
+        longer trims spaces from the beginning of printed lines.
+        This gives an accurate representation of what the text
+        looked like.  Note that ANSI cursor movement commands can
+        make the scrollback buffer look different than what you see
+        on the screen.
+
+       Carriage Return (CR) and Line Feed (LF) characters are now
+        handled properly.
+
+       Cursor wrapping no longer occurs on column #80, but at column
+        81.  This became evident with large ANSI pictures becoming
+        screwed up due to premature Cursor wrapping.
+
+       A complete dialing directory system has been added in this
+        version of RIPterm.  You may have up to 100 separate systems
+        in a particular dialing directory file (e.g., RIPTERM.PHO).
+        You may have as many directory files as you wish.  The Dialing
+        Directory has a great many features to make your life easier.
+        See the section in RIPTERM.DOC on "Dialing Directories" for
+        more information on the available features.
+
+       The "Dialing Window" has been overhauled to display what
+        system you are currently dialing.  In addition, you may alter
+        the "Redial time" from within this window by clicking on the
+        increment/decrement buttons next to the timer.  This allows
+        you to increase or decrease the available redial timeout without
+        having to edit your setup manually.  Also, a DELETE button has
+        been added allowing you to remove an entry from the list of
+        Systems you are dialing.  This would be useful if you were
+        dialing several systems and you decide that you do not wish
+        to dial one of the systems anymore.
+
+       Ability to keep Icons in separate subdirectories for different
+        systems.  Specify which system's icons go where in the
+        dialing directory.  If you do not specify which sub-directory
+        Icons will be stored in, the default ICONS\ sub-directory will
+        be used.  If the BBS you are connected to instructs RIPterm to
+        load an Icon, it will first check that system's directory.  If
+        the Icon is not located there, it will check the ICONS\
+        directory for the file.  This allows a BBS to "overide" default
+        Icons with ones of their own design, thus preventing one BBS
+        from over-writing Icons from another system inadvertantly.
+
+       New command line options for specifying alternate Setup files,
+        alternate dialing directory files, and to automatically dial
+        an entry in the dialing directory upon bootup.  Type
+        "RIPTERM ?" for more details or see RIPTERM.DOC for a more
+        elaborate description on these features.
+
+       Re-engineered internal memory management.  RIPterm now uses
+        memory more efficiently than in previous versions.
+
+       Auto Download feature for BBS'es that can take advantage of
+        it.  This allows protocols like Xmodem to auto-download
+        like Zmodem does.
+
+       Zmodem auto-downloads will now "erase" the Zmodem transfer
+        header before actually beginning the download.  
+
+       New Block Protocol option - This is for use on RIPscrip
+        BBS'es where an error-free transmission of Icons or RIP
+        scenes is desired.  RIPterm accomplishes this transfer of
+        information with its built-in file transfer protocols.
+
+       Progress Indicator on any upload/download that supports
+        Batch Transfer (i.e., Ymodem, Ymodem-G, Kermit and Zmodem).
+
+       Option to use DTR to hangup the modem instead of the less
+        efficient +++ ATH method.  If for some reason, DTR fails to
+        hangup the modem, the normal +++ ATH method will be used to
+        disconnect.  If the modem still has not terminated the
+        connection, the message "Hangup Failed" will be displayed to
+        alert you that you are still online.
+
+       Support for many new ANSI escape code sequences (some VT-102
+        and VT-52 features now supported).  The new ANSI codes
+        processed are:
+      
+           ş Underline mode now supported in "display attributes"
+           ş Blink mode now displays as BOLD (bright)
+           ş Invert Video mode now acts properly
+           ş Tab Stops are fully supported now
+           ş Scrolling regions now supported
+           ş Device Status Reports
+           ş Extended Save/Restore cursor (ESC 7, ESC 8) added
+           ş Reset Terminal Emulation command (ESC c)
+           ş Device Attribute Report (ESC Z)
+           ş Cursor UP/DOWN with scrolling (ESC D, ESC M, ESC E)
+      
+       DOS Shell mode spruced up a bit - now displays a modified
+        DOS Prompt to indicate you are inside a DOS Shell.
+
+       New Intro screen mode.  You may now view a .PCX file upon
+        bootup in place of the standard logo screen.  If the file
+        RIPTERM.PCX is present in your RIPterm directory, it will be
+        loaded.  A Brief copyright message will be shown at the
+        bottom of the screen.  .PCX logo files must be 16-color
+        EGA images in a resolution of 640x350.  The Copyright
+        Message is displayed from scan lines 300-349.
+
+       A new RIPTERM.RES (resource) file is included with RIPterm.
+        This file contains many of the frequently used graphical
+        images that are used internally in RIPterm.  BBS Icons
+        are NOT stored in this file.
+
+       Local RIPscrip file playback ability.  The host can now
+        transfer a .RIP file to your system, and then later on
+        instruct your system to play it back locally.  Graphics
+        playback is lightning fast in this mode.
+
+       You can now automatically display a RIPscrip scene file 
+        upon bootup of RIPterm if you wish.  Use the -R parameter
+        when booting up RIPterm to execute a RIPscrip file.  For
+        example, if you wanted to load RIPterm and display the
+        RIPscrip file MYSCREEN.RIP, issue the folling command:
+
+          ripterm -rMYSCREEN.RIP
+
+        If you omit the .RIP extension, it will be added for you
+        automatically.  .RIP files by default, are checked in the
+        ICONS\ sub-directory.
+
+       New option to disable Beeps has been added for situations
+        where you want peace and quiet.
+
+       Status Bar has been re-designed.  It is now shorter, thus
+        allowing a full 80x24 screen when in certain System Font
+        modes.  In addition, you can now "click" on fields in the
+        status bar and the appropriate command will be executed.
+        Some status bar fields do different things in different
+        modes.  If you are Online somewhere, and you click on the
+        "Online" field, it will ask you if you wish to Hangup.
+        If you are Offline, and you click on "Offline", it will
+        bring up the dialing directory automatically.  If you are
+        currently logging a session to disk, the filename will be
+        displayed on that Status Bar.  Clicking on this field will
+        allow you to close the Log File.
+
+       You may now "Pause" a log-file temporarily.
+
+       Data Security mode has been added to prevent unauthorized
+        queries from your local Database by Host Systems.  This
+        mode was added so that as the user have control on what
+        types of information a BBS can ask your terminal.
+
+       You may now execute a local .RIP file from within a keystroke
+        macro quickly and easily.  The .RIP file that is loaded will
+        be located in whatever Icons sub-directory is designated for
+        the system you are currently connected to.  If it cannot find
+        the file in that directory, or you are not currently online,
+        it will load the file from the ICONS\ sub-directory.
+
+       You may now alter the Base-I/O address of your Serial Ports.
+        This becomes quite useful in situations where you have an
+        oddball Serial Port configuration where IRQ (interrupt)
+        settings just won't cut it.  This is quite useful for things
+        like DigiBoards, or other multi-port boards.  Consult your
+        Serial Port card's documentation for details about various
+        addresses it may use.
+
+       A dialing directory conversion utility has been included with
+        this release of RIPterm allowing you to convert Telix or
+        TeleMate dialing directory files to RIPterm format.  This
+        utility will auto-detect what type of directory file you 
+        specify, and will convert the first 100 non-blank entries
+        into the specified RIPterm directory file.  Both Telix and
+        TeleMate allow up to 1000 entries in their dialing directory.
+        RIPterm allows up to 100 entries.
+      
+
+ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+³                  Version 1.01.01 ... Released 01/05/93                     ³
+ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+     This minor release altered none of the functionality of RIPterm
+     itself.  This release solely altered the name of the company who
+     wrote the software to "TeleGrafix Communications, Inc."
+
+
+ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+³                  Version 1.01.00 ... Released 10/23/92                     ³
+ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+     This version added many significant features to the RIPterm
+     software.  Of the many features included are the following:
+     
+       Log-to-disk ability
+
+       Custom IRQ settings
+
+       Auto-Answer mode
+
+       New File Transfer Protocols were added:
+      
+            Zmodem
+            Ymodem
+            Xmodem-1K
+      
+       Auto-initiating Zmodem downloads
+
+       Shell to DOS ability
+
+       Upload ASCII files with optional Line/Character pacing
+
+       EMS/XMS/overlay support to maximize memory efficiency
+
+
+ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+³                  Version 1.00.00 ... Released 09/10/92                     ³
+ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+     This is the first official Public release of RIPterm as a Freeware
+     software package.  Several features were added that were not in
+     previous Beta copies.
+
+
+ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+³               Version 0.99.31 (Beta) ... Released 02/15/92                 ³
+ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+     A number of changes were made in this first Beta revision.  Among
+     those worth mentioning are:
+
+       Support for the revised Mouse Region portion of the RIPscrip
+        protocol.  It now has the ability to set the text window to
+        full screen and clear the screen when a mouse region is
+        clicked.  This provides for a simplified installation on a
+        BBS that has many areas that cannot support RIPscrip.
+
+       More Streamlined clickable buttons, simple dialog boxes and
+        Information windows.  In all of these cases, the buttons on
+        these windows are now "visibly" clickable and support default
+        choices when <RETURN> is pressed.  In addition, tapping <ESC>
+        at any of these menus now operates properly rather than 
+        selecting "YES" all the time.
+
+       The "Reset All Windows" RIPscrip command would not clear the
+        last few scan lines of the graphics display.  This would
+        occasionally leave remaining graphics data on the screen when
+        it shouldn't be there.  Now fixed.
+
+       When dialing the modem with the auto re-dialer, tapping a key
+        would display a message in the message window in the incorrect
+        font, size and color.  Now fixed.
+
+
+ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+³               Version 0.99.30 (Beta) ... Released 08/28/92                 ³
+ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+     This was the initial Beta release of RIPterm.  
+
+
