@@ -1,14 +1,17 @@
 ## RIPterm 1.54
 
-This is the original MS-DOS RIPterm 1.54 freeware software (binary) used for calling RIP-enabled BBSs back in the 1990s. This program used to be freely available for download on BBSs. It was created by TeleGrafix Communications, Inc.
+This is the original MS-DOS RIPterm 1.54 freeware software (binary) used for calling RIP-enabled BBSs in the 1990s. This program used to be freely available for download on BBSs. It was created by TeleGrafix Communications, Inc.
 
-I included a script to make it easier to contact BBSs using Telnet. This script is set up to use the [DOSBox](https://www.dosbox.com) emulator to run RIPterm, which you'll want to install first.
+Included is a script to make it easier to contact BBSs using Telnet. This script is set up to use the [DOSBox](https://www.dosbox.com) emulator to run RIPterm, which must be installed first.
 
-The [Remote Imaging Protocol](https://en.wikipedia.org/wiki/Remote_Imaging_Protocol) (RIP) was a vector graphics encoding used in [Bulletin Board Systems](https://en.wikipedia.org/wiki/Bulletin_board_system) (BBSs). It was invented in 1992 as a new standard for drawing graphics in the terminal, also known as *RIPscrip*. It was designed in such a way to support existing BBS software, while adding vector graphics capability, such as drawing lines and shapes, similar to today's SVG format on the web. Buttons could be rendered that when clicked, would send text through the terminal as if you pressed the keys on the keyboard. It gave a GUI interface to existing menus, and some door games made use of it too. Just like the underground [ANSI art](https://en.wikipedia.org/wiki/ANSI_art) scene where artists made use of colored text characters, there was a RIP art scene too. There's a large collection of RIP art available to download at [16colors](https://16colo.rs/search/?e=RIP&r=500).
+**RIPterm 1.54** runs in MS-DOS and uses an EGA graphics mode at 640 x 350 px and 16 colors which can be redefined.
 
-**RIPterm 1.54** ran in MS-DOS and used an older EGA graphics mode with a resolution of 640 x 350 px and 16 colors which could be redefined.
+#### Related Links
 
-I'm working on a complete rewrite of RIPterm in Javascript, called [RIPtermJS](https://github.com/cgorringe/RIPtermJS). This program will make it easier to display RIP art and communicate with RIP-enabled BBSs and Door Games using a web browser canvas interface.
+- [Remote Imaging Protocol](https://en.wikipedia.org/wiki/Remote_Imaging_Protocol) (RIP) on Wikipedia.
+- [Bulletin Board System](https://en.wikipedia.org/wiki/Bulletin_board_system) (BBS) on Wikipedia.
+- [Collecton of RIP Art](https://16colo.rs/tags/content/ripscrip) at [16colo.rs](https://16colo.rs).
+- [RIPtermJS](https://github.com/cgorringe/RIPtermJS) - A rewrite of RIPterm in Javascript (in progress)
 
 
 ### Install Dependencies: DOSBox
@@ -35,13 +38,13 @@ The included script is not designed to run on Windows natively. It could work if
 Run this script located in the root directory:
 
 ```
- ./ripterm server port
+ ./ripterm.sh server port
 ```
 
 For example:
 
 ```
- ./ripterm bbs.example.com 23
+ ./ripterm.sh bbs.example.com 23
 ```
 
 The default Telnet port is 23, but many BBSs may use a different port number.
